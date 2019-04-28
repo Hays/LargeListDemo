@@ -26,7 +26,7 @@ type Comment = {
 
 const mockData: Comment[] = []
 
-for (let index = 0; index < 15; index++) {
+for (let index = 0; index < 50; index++) {
   let content = ''
   for (let i = 0; i < index; i++) {
     content += `content - ${index}`
@@ -53,7 +53,7 @@ export default class App extends Component<Props, State> {
     this._renderIndexPath = this._renderIndexPath.bind(this)
     this._heightForIndexPath = this._heightForIndexPath.bind(this)
     this.state = {
-      comments: [{ items: mockData }],
+      comments: [{ items: [] }],
       heights: []
     }
   }
@@ -62,8 +62,8 @@ export default class App extends Component<Props, State> {
     mockData.forEach(c => {
       allContent.push(`name: ${c.name}, content: ${c.content}`)
     })
-    const width = Dimensions.get('window').width - 60
-    // console.log('>>> test by Hays 444 .. ', allContent)
+    const width = Dimensions.get('window').width - 75
+    console.log('>>> test by Hays 444 .. ', width)
     const params = {
       text: allContent,
       width,
@@ -72,7 +72,8 @@ export default class App extends Component<Props, State> {
     }
     rnTextSize.flatHeights(params).then(ret => {
       this.setState({
-        heights: ret
+        heights: ret,
+        comments: [{ items: mockData }]
       })
     })
   }
@@ -95,7 +96,7 @@ export default class App extends Component<Props, State> {
     return 62
   }
   _onItemLayout(event) {
-    // console.log('>>> test by Hays333 ... ', event.nativeEvent.layout.width)
+    console.log('>>> test by Hays333 ... ', event.nativeEvent.layout.width)
   }
   _renderIndexPath({ row }) {
     const item = this.state.comments[0].items[row]
